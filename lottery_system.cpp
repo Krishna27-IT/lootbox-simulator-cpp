@@ -26,18 +26,12 @@ Reward performSpin(mt19937& gen ,int total_weight,const vector<Reward>& slot){
 }
 
 int main(){
-    Reward items1{"Basic AKM","Common",40};
-    Reward items2{"Green Shirt","Common",30};
-    Reward items3{"Blue Shoes","Rare",15};
-    Reward items4{"Epic Dance","Epic",10};
-    Reward items5{"Golden AKM","Legendary",5};
-
     vector<Reward> slot;
-    slot.push_back(items1);
-    slot.push_back(items2);
-    slot.push_back(items3);
-    slot.push_back(items4);
-    slot.push_back(items5);
+    slot.push_back({"Basic AKM","Common",40}); 
+    slot.push_back({"Green Shirt","Common",30}); 
+    slot.push_back({"Blue Shoes","Rare",15}); 
+    slot.push_back({"Epic Dance","Epic",10}); 
+    slot.push_back({"Golden AKM","Legendary",5});
 
     random_device rd;
     mt19937 gen(rd());
@@ -50,13 +44,20 @@ int main(){
         total_weight += r.weight;
     }
 
-    for(int i=0;i<1000;i++){
+    vector<Reward> inventory;
+
+    for(int i=0;i<10;i++){
         Reward wonItem = performSpin(gen, total_weight, slot);
+        inventory.push_back(wonItem);
         itemTracker[wonItem.name]++;
     }
 
     for(const auto& pair: itemTracker){
         cout<<"Item: "<< pair.first<<" | Count: "<<pair.second<<endl;
+    }
+
+    for(const Reward& i : inventory){
+        cout<<"\nWon Items: "<<i.name<<endl;
     }
 
    return 0;
