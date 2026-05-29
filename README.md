@@ -1,31 +1,41 @@
-# Lootbox Simulator (C++)
+# Lottery System (C++)
 
-A simple lootbox/gacha simulator made in C++.
+A console-based lootbox / lottery simulator built in C++.
 
 ## Features
-- Weighted random reward system
-- Different rarity categories
-- Inventory system
-- Reward tracking using unordered_map
-- Random number generation using mt19937
 
-## Technologies
-- C++
-- STL Vector
-- unordered_map
-- random library
+* Weighted random reward system
+* Different reward rarities
+* Single spin
+* 10x spin
+* Inventory system
+* Menu-driven interface
+* Random number generation using `mt19937`
+
+## Technologies Used
+
+* C++
+* STL Vector
+* Structs
+* Functions
+* Random Library (`<random>`)
 
 ## Future Improvements
-- Interactive menu system
-- Currency system
-- Pity mechanic
-- Save/load inventory
+
+* Currency system
+* Save/load inventory
+* Rarity statistics
+* Better inventory UI
+* Pity system
+* Class-based architecture
 
 ## Learning Goals
-This project was created to practice:
-- structs
-- vectors
-- random generation
-- functions
-- data structures
-- modular programming
+
+This project was built to practice:
+
+* vectors
+* references
+* constructors
+* modular programming
+* weighted probability systems
+* Git & GitHub workflow
