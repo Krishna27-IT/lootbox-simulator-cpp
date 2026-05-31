@@ -3,6 +3,7 @@
 #include<vector>
 #include<string>
 #include<random>
+#include<iomanip>
 using namespace std;
 
 struct Reward{
@@ -41,30 +42,50 @@ void multipleSpin(mt19937& gen ,int total_weight,const vector<Reward>& slot, vec
 
 void showInventory(const vector<Reward>& inventory){
     if(inventory.empty()){
-    cout << "\nInventory is empty!\n";
-    return;
+        cout << "\nInventory is empty!\n";
+        return;
     }
 
     cout<<"\nWon Items: "<<endl;
     for(const Reward& i : inventory){
-        cout<<i.name<<"\n";
+        cout<<i.name<<" ("<<i.rarity<<")\n";
     }
 }
 
 void showInventoryStats(const vector<Reward>& inventory){
     unordered_map<string, int> itemTracker;
     if(inventory.empty()){
-    cout << "\nInventory is empty!\n";
-    return;
+        cout << "\nInventory is empty!\n";
+        return;
     }
 
     for(const Reward& r : inventory){
-    itemTracker[r.name]++;
+        itemTracker[r.name]++;
     }
 
-    cout<<'\n'<<endl;
+    cout<<endl;
     for(const auto& pair : itemTracker){
         cout<<pair.first<<" -> "<<pair.second<<endl;
+    }
+}
+
+void showDropRates(const vector<Reward>& inventory){
+    unordered_map<string, int> dropRate;
+    if(inventory.empty()){
+        cout << "\nInventory is empty!\n";
+        return;
+    }
+
+    int total_items = inventory.size();
+    for(const Reward& r : inventory){
+        dropRate[r.name]++;
+    }
+
+    cout<<endl;
+    for(const auto& count : dropRate){
+        double percentage = (count.second * 100.0)/ total_items; 
+        cout<<fixed<<setprecision(2);     
+        cout<<count.first<<" -> "<<percentage<<"%\n";
     }
 }
 
@@ -100,7 +121,8 @@ int main(){
         cout<<"2. 10 Spin"<<endl;
         cout<<"3. Show Inventory"<<endl;
         cout<<"4. Inventory Statistics"<<endl;
-        cout<<"5. Exit!"<<endl;
+        cout<<"5. Drop Rate Stats: "<<endl;
+        cout<<"6. Exit!"<<endl;
         cout<<"Enter Your Choice: "<<endl;
         cin>>choice;
 
@@ -136,8 +158,12 @@ int main(){
             showInventoryStats(inventory);
             break;
 
-        case 5: 
-            return 0;
+        case 5:
+            showDropRates(inventory);
+            break;
+
+        case 6: 
+           return 0;
         
         default:
             cout<<"\nInvalid Input!"<<endl;
