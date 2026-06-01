@@ -1,6 +1,6 @@
 # Lottery System (C++)
 
-A console-based lottery/lootbox simulator built in C++ that uses weighted random probabilities to reward players with different items. The project demonstrates core C++ concepts including structs, vectors, unordered maps, random number generation, references, and menu-driven applications.
+A console-based lottery/lootbox simulator built in C++. The project uses weighted random probabilities to reward players with different items and demonstrates practical C++ concepts such as structs, vectors, unordered maps, file handling, random number generation, and menu-driven programming.
 
 ---
 
@@ -14,8 +14,10 @@ A console-based lottery/lootbox simulator built in C++ that uses weighted random
 - Inventory system
 - Inventory statistics
 - Drop rate percentage tracking
-- Menu-driven interface
-- Random number generation using `mt19937`
+- Save inventory to file
+- Load inventory from file
+- Persistent inventory across program runs
+- Random reward generation using `mt19937`
 
 ---
 
@@ -50,6 +52,7 @@ A console-based lottery/lootbox simulator built in C++ that uses weighted random
 - Won items are stored in the inventory
 - Inventory statistics track item counts
 - Drop rate statistics show actual percentages obtained
+- Inventory can be saved and loaded between sessions
 
 ---
 
@@ -61,4 +64,5 @@ A console-based lottery/lootbox simulator built in C++ that uses weighted random
 3. Show Inventory
 4. Inventory Statistics
 5. Drop Rate Stats
-6. Exit
+6. Save File
+7. Exit
