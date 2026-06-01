@@ -4,6 +4,7 @@
 #include<string>
 #include<random>
 #include<iomanip>
+#include<fstream>
 using namespace std;
 
 struct Reward{
@@ -89,6 +90,34 @@ void showDropRates(const vector<Reward>& inventory){
     }
 }
 
+void saveInventory(const vector<Reward>& inventory){
+    ofstream file("Won Items.txt");
+    if(!file){
+        cout<<"\nError Opening File!\n";
+        return;
+    }
+
+    for(const Reward& r : inventory){
+            file<<r.name<<","<<r.rarity<<"\n";
+    }
+}
+
+void loadInventory(vector<Reward>& inventory){
+    ifstream file("Won Items.txt");
+    string line;
+    if(!file){
+        cout<<"\nNo save file found.\n";
+        return;
+    }
+
+    while(getline(file, line)){
+    size_t commaPos = line.find(',');
+    string name = line.substr(0, commaPos);
+    string rarity = line.substr(commaPos+1);
+    inventory.emplace_back(name,rarity,0);
+    }
+}
+
 int main(){
     int coin =1000;
     const int SPIN_COST = 100;
@@ -112,6 +141,8 @@ int main(){
 
     vector<Reward> inventory;
 
+    loadInventory(inventory);
+
     int choice;
 
     while(true){
@@ -122,7 +153,8 @@ int main(){
         cout<<"3. Show Inventory"<<endl;
         cout<<"4. Inventory Statistics"<<endl;
         cout<<"5. Drop Rate Stats: "<<endl;
-        cout<<"6. Exit!"<<endl;
+        cout<<"6. Save File"<<endl;
+        cout<<"7. Exit!"<<endl;
         cout<<"Enter Your Choice: "<<endl;
         cin>>choice;
 
@@ -163,7 +195,12 @@ int main(){
             break;
 
         case 6: 
-           return 0;
+           saveInventory(inventory);
+           cout << "\nInventory saved successfully!\n";
+           break;
+
+        case 7:
+            return 0;
         
         default:
             cout<<"\nInvalid Input!"<<endl;
