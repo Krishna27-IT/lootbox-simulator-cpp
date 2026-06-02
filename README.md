@@ -1,60 +1,29 @@
-# Lottery System (C++)
+# Lottery Simulator (C++)
 
-A console-based lottery/lootbox simulator built in C++. The project uses weighted random probabilities to reward players with different items and demonstrates practical C++ concepts such as structs, vectors, unordered maps, file handling, random number generation, and menu-driven programming.
-
----
+A console-based gacha/lottery simulator built in C++.
 
 ## Features
 
 - Weighted random reward system
-- Multiple item rarities
-- Single Spin option
-- 10 Spin option
+- Single spin and 10-spin options
 - Coin-based economy
 - Inventory system
 - Inventory statistics
-- Drop rate percentage tracking
+- Drop rate analysis
 - Save inventory to file
-- Load inventory from file
-- Persistent inventory across program runs
-- Random reward generation using `mt19937`
-
----
+- Load inventory from file on startup
+- Pity system (guaranteed Legendary after 20 non-Legendary pulls)
+- Random number generation using Mersenne Twister (`mt19937`)
 
 ## Rewards
 
 | Item | Rarity | Weight |
-|--------|----------|--------|
+|--------|----------|----------|
 | Basic AKM | Common | 40 |
 | Green Shirt | Common | 30 |
 | Blue Shoes | Rare | 15 |
 | Epic Dance | Epic | 10 |
 | Golden AKM | Legendary | 5 |
-
-### Reward Probabilities
-
-| Item | Probability |
-|--------|------------|
-| Basic AKM | 40% |
-| Green Shirt | 30% |
-| Blue Shoes | 15% |
-| Epic Dance | 10% |
-| Golden AKM | 5% |
-
----
-
-## Game Mechanics
-
-- Player starts with **1000 Coins**
-- Single Spin costs **100 Coins**
-- 10 Spin costs **900 Coins**
-- Rewards are selected using weighted probability
-- Won items are stored in the inventory
-- Inventory statistics track item counts
-- Drop rate statistics show actual percentages obtained
-- Inventory can be saved and loaded between sessions
-
----
 
 ## Menu
 
@@ -66,3 +35,50 @@ A console-based lottery/lootbox simulator built in C++. The project uses weighte
 5. Drop Rate Stats
 6. Save File
 7. Exit
+```
+
+## Concepts Practiced
+
+- Structs
+- Constructors
+- Vectors
+- References
+- Functions
+- Random Number Generation
+- Weighted Probability
+- Unordered Maps
+- File Handling (ifstream/ofstream)
+- Inventory Management
+- Statistics Calculation
+- Persistence (Save/Load)
+- Pity System Logic
+
+## Save File Format
+
+Inventory is stored in:
+
+```text
+Won Items.txt
+```
+
+Example:
+
+```text
+Basic AKM,Common
+Golden AKM,Legendary
+Blue Shoes,Rare
+```
+
+
+## Future Improvements
+
+- Inventory filtering by rarity
+- Inventory sorting
+- Multiple Legendary rewards
+- Save/load pity counter
+- Better file format
+- Class-based design
+- Banner system
+- Reward selling system
+- Shop system
+
