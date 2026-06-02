@@ -32,10 +32,11 @@ Reward performSpin(mt19937& gen ,int total_weight,const vector<Reward>& slot){
     }
     return Reward{"Nothing","Common",0};
 }
+Reward pitySystem(mt19937& gen,int total_weight,const vector<Reward>& slot,int& pityCounter);
 
-void multipleSpin(mt19937& gen ,int total_weight,const vector<Reward>& slot, vector<Reward>& inventory){
+void multipleSpin(mt19937& gen ,int total_weight,const vector<Reward>& slot, vector<Reward>& inventory, int& pityCounter){
     for(int i=0;i<10;i++){
-        Reward reward=performSpin(gen, total_weight, slot);
+        Reward reward=pitySystem(gen,total_weight,slot,pityCounter);
         cout<<"\nYOU WON!: "<<reward.name<<"\n";
         inventory.push_back(reward);
     }
@@ -118,8 +119,25 @@ void loadInventory(vector<Reward>& inventory){
     }
 }
 
+Reward pitySystem(mt19937& gen, int total_weight, const vector<Reward>& slot, int& pityCounter){
+    const int LEGENDARY_INDEX = 4;
+
+    if(pityCounter >= 20){
+        pityCounter=0; 
+        return slot[LEGENDARY_INDEX];
+    }
+
+    Reward r = performSpin(gen, total_weight,slot);
+    if(r.rarity==slot[4].rarity){
+        pityCounter=0;
+    }else{
+        pityCounter++;
+    }
+    return r;
+}
+
 int main(){
-    int coin =1000;
+    int coin =2000;
     const int SPIN_COST = 100;
     const int TEN_SPIN_COST=900;
 
@@ -145,6 +163,8 @@ int main(){
 
     int choice;
 
+    int pityCounter = 0;
+
     while(true){
         cout<<"-------Lottery Simulator-------"<<endl;
         cout<<"\nAvailable Coins: "<<coin<<endl;
@@ -163,7 +183,7 @@ int main(){
         case 1:
             if(coin >= SPIN_COST){
                 coin -= SPIN_COST;
-                Reward reward = performSpin(gen,total_weight,slot);
+                Reward reward = pitySystem(gen,total_weight,slot,pityCounter);
                 cout<<"\nYOU WON!: "<<reward.name<<endl;
                 inventory.push_back(reward);
                 cout<<"Current Coin: "<<coin<<endl;
@@ -175,7 +195,7 @@ int main(){
         case 2:
             if(coin >= TEN_SPIN_COST){
                 coin -= TEN_SPIN_COST;
-                multipleSpin(gen,total_weight,slot,inventory);
+                multipleSpin(gen,total_weight,slot,inventory,pityCounter);
                 cout<<"\nCurrent Coin: "<<coin<<endl;
             }else{
                 cout<<"\nInsufficient Coins!"<<endl;
