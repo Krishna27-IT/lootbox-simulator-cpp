@@ -1,19 +1,20 @@
 # Lottery Simulator (C++)
 
-A console-based gacha/lottery simulator built in C++.
+A console-based gacha/lottery simulator built in C++ to practice core programming concepts including structs, vectors, random number generation, file handling, hash maps, and game logic.
 
 ## Features
 
 - Weighted random reward system
-- Single spin and 10-spin options
-- Coin-based economy
-- Inventory system
-- Inventory statistics
+- Single Spin and 10x Spin
+- Coin-based currency system
+- Inventory management
+- Inventory statistics tracking
 - Drop rate analysis
 - Save inventory to file
 - Load inventory from file on startup
-- Pity system (guaranteed Legendary after 20 non-Legendary pulls)
-- Random number generation using Mersenne Twister (`mt19937`)
+- Legendary pity system (guaranteed Legendary after 20 non-Legendary spins)
+- Filter inventory by rarity
+- Persistent inventory between program runs
 
 ## Rewards
 
@@ -27,58 +28,54 @@ A console-based gacha/lottery simulator built in C++.
 
 ## Menu
 
-```text
 1. Spin
 2. 10 Spin
 3. Show Inventory
 4. Inventory Statistics
 5. Drop Rate Stats
 6. Save File
-7. Exit
-```
+7. Filter by Rarity
+8. Exit
 
 ## Concepts Practiced
 
-- Structs
-- Constructors
+- Structs and constructors
 - Vectors
-- References
-- Functions
-- Random Number Generation
-- Weighted Probability
-- Unordered Maps
-- File Handling (ifstream/ofstream)
-- Inventory Management
-- Statistics Calculation
-- Persistence (Save/Load)
-- Pity System Logic
+- References (&)
+- Const correctness
+- Random number generation (mt19937)
+- Weighted probability systems
+- Functions and modular design
+- File I/O (ifstream, ofstream)
+- Hash maps (unordered_map)
+- Data persistence
+- Pity system implementation
+- Menu-driven applications
 
 ## Save File Format
 
 Inventory is stored in:
 
-```text
 Won Items.txt
-```
 
 Example:
 
-```text
 Basic AKM,Common
 Golden AKM,Legendary
 Blue Shoes,Rare
-```
 
+The file is automatically loaded when the program starts.
 
 ## Future Improvements
 
-- Inventory filtering by rarity
-- Inventory sorting
-- Multiple Legendary rewards
-- Save/load pity counter
-- Better file format
-- Class-based design
-- Banner system
-- Reward selling system
-- Shop system
+- Sell items for coins
+- Sort inventory
+- Multiple banners
+- Inventory search
+- Inventory quantity stacking
+- Better save system
+- Class-based (OOP) redesign
+- Banner-specific pity counters
 
+
+Project Goal: Practice C++ fundamentals through a progressively enhanced console application while learning real-world programming concepts such as randomness, persistence, and data management.

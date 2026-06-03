@@ -128,12 +128,57 @@ Reward pitySystem(mt19937& gen, int total_weight, const vector<Reward>& slot, in
     }
 
     Reward r = performSpin(gen, total_weight,slot);
-    if(r.rarity==slot[4].rarity){
+    if(r.rarity==slot[LEGENDARY_INDEX].rarity){
         pityCounter=0;
     }else{
         pityCounter++;
     }
     return r;
+}
+
+void filterbyRarity(const vector<Reward>& inventory){
+    if(inventory.empty()){
+    cout << "\nInventory is empty!\n";
+    return;
+    }
+
+    int choice;
+    bool  found = false;
+    cout<<"\nChoose Rarity: "<<endl;
+    cout<<"1. Common"<<endl;
+    cout<<"2. Rare"<<endl;
+    cout<<"3. Epic"<<endl;
+    cout<<"4. Legendary"<<endl;
+    cin>>choice;
+
+    string rarity;
+
+    switch(choice){
+        case 1:
+            rarity = "Common";
+            break;
+        case 2:
+            rarity = "Rare";
+            break;
+        case 3:
+            rarity = "Epic";
+            break;
+        case 4:
+            rarity = "Legendary";
+            break;
+        default:
+            cout<<"\nInvalid Input!\n";
+            return;
+    }
+
+    for(const Reward& r : inventory){
+        if(r.rarity == rarity) cout<<r.name<<", "<<r.rarity<<endl;
+        found = true;
+    }
+
+    if(!found){
+        cout<<"\nNo items found with the selected rarity!\n";
+    }
 }
 
 int main(){
@@ -174,7 +219,8 @@ int main(){
         cout<<"4. Inventory Statistics"<<endl;
         cout<<"5. Drop Rate Stats: "<<endl;
         cout<<"6. Save File"<<endl;
-        cout<<"7. Exit!"<<endl;
+        cout<<"7. Filter by Rarity"<<endl;
+        cout<<"8. Exit!"<<endl;
         cout<<"Enter Your Choice: "<<endl;
         cin>>choice;
 
@@ -220,6 +266,10 @@ int main(){
            break;
 
         case 7:
+            filterbyRarity(inventory);
+            break;
+
+        case 8:
             return 0;
         
         default:
