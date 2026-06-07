@@ -172,13 +172,50 @@ void filterbyRarity(const vector<Reward>& inventory){
     }
 
     for(const Reward& r : inventory){
-        if(r.rarity == rarity) cout<<r.name<<", "<<r.rarity<<endl;
-        found = true;
+        if(r.rarity == rarity){
+            cout<<r.name<<", "<<r.rarity<<endl;
+            found = true;
+        }
     }
 
     if(!found){
         cout<<"\nNo items found with the selected rarity!\n";
     }
+}
+
+int getSellPrice(const Reward& item){
+    if(item.rarity== "Common") return 10;
+    if(item.rarity== "Rare") return 50;
+    if(item.rarity== "Epic") return 100;
+    if(item.rarity== "Legendary") return 500;
+
+    return 0;
+}
+
+void sellItem(vector<Reward>& inventory, int& coin){
+    if(inventory.empty()){
+    cout << "\nInventory is empty!\n";
+    return;
+    }
+
+    for(int i = 0; i < inventory.size(); i++){
+        cout<<i<<". "<<inventory[i].name<<" ("<<inventory[i].rarity<<")\n";
+    }
+
+    int index;
+    cout<<"\nEnter item index to sell: ";
+    cin>>index;
+
+    if(index < 0 || index >= inventory.size()){
+        cout << "\nInvalid index!\n";
+        return;
+    }
+
+    int price = getSellPrice(inventory[index]);
+    coin += price;
+
+    cout<<"\nSold "<< inventory[index].name<<" for "<<price<<" coins.\n";
+    inventory.erase(inventory.begin()+index);
 }
 
 int main(){
@@ -220,7 +257,8 @@ int main(){
         cout<<"5. Drop Rate Stats: "<<endl;
         cout<<"6. Save File"<<endl;
         cout<<"7. Filter by Rarity"<<endl;
-        cout<<"8. Exit!"<<endl;
+        cout<<"8. Sell Items"<<endl;
+        cout<<"9. Exit!"<<endl;
         cout<<"Enter Your Choice: "<<endl;
         cin>>choice;
 
@@ -270,6 +308,10 @@ int main(){
             break;
 
         case 8:
+            sellItem(inventory, coin);
+            break;
+
+        case 9:
             return 0;
         
         default:

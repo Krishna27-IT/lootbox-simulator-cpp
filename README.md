@@ -1,22 +1,38 @@
 # Lottery Simulator (C++)
 
-A console-based gacha/lottery simulator built in C++ to practice core programming concepts including structs, vectors, random number generation, file handling, hash maps, and game logic.
+A console-based gacha/lottery simulator built in C++ to practice data structures, random number generation, file handling, inventory management, and game system design.
 
 ## Features
 
-- Weighted random reward system
-- Single Spin and 10x Spin
+### Core Gacha System
+- Weighted random reward drops
+- Single Spin
+- 10x Spin
 - Coin-based currency system
-- Inventory management
-- Inventory statistics tracking
-- Drop rate analysis
-- Save inventory to file
-- Load inventory from file on startup
-- Legendary pity system (guaranteed Legendary after 20 non-Legendary spins)
-- Filter inventory by rarity
-- Persistent inventory between program runs
 
-## Rewards
+### Inventory System
+- Store won rewards
+- Display inventory contents
+- Inventory statistics
+- Filter inventory by rarity
+- Sell items for coins
+
+### Statistics
+- Item count tracking
+- Drop rate percentage analysis
+- Rarity-based filtering
+
+### Persistence
+- Save inventory to file
+- Load inventory automatically on startup
+
+### Pity System
+- Guaranteed Legendary reward after 20 non-Legendary spins
+- Counter resets after obtaining a Legendary reward
+
+---
+
+## Reward Pool
 
 | Item | Rarity | Weight |
 |--------|----------|----------|
@@ -26,56 +42,28 @@ A console-based gacha/lottery simulator built in C++ to practice core programmin
 | Epic Dance | Epic | 10 |
 | Golden AKM | Legendary | 5 |
 
-## Menu
+---
 
+## Sell Values
+
+| Rarity | Coins |
+|----------|----------|
+| Common | 10 |
+| Rare | 50 |
+| Epic | 100 |
+| Legendary | 500 |
+
+---
+
+## Menu Options
+
+```text
 1. Spin
 2. 10 Spin
 3. Show Inventory
 4. Inventory Statistics
 5. Drop Rate Stats
 6. Save File
-7. Filter by Rarity
-8. Exit
-
-## Concepts Practiced
-
-- Structs and constructors
-- Vectors
-- References (&)
-- Const correctness
-- Random number generation (mt19937)
-- Weighted probability systems
-- Functions and modular design
-- File I/O (ifstream, ofstream)
-- Hash maps (unordered_map)
-- Data persistence
-- Pity system implementation
-- Menu-driven applications
-
-## Save File Format
-
-Inventory is stored in:
-
-Won Items.txt
-
-Example:
-
-Basic AKM,Common
-Golden AKM,Legendary
-Blue Shoes,Rare
-
-The file is automatically loaded when the program starts.
-
-## Future Improvements
-
-- Sell items for coins
-- Sort inventory
-- Multiple banners
-- Inventory search
-- Inventory quantity stacking
-- Better save system
-- Class-based (OOP) redesign
-- Banner-specific pity counters
-
-
-Project Goal: Practice C++ fundamentals through a progressively enhanced console application while learning real-world programming concepts such as randomness, persistence, and data management.
+7. Filter By Rarity
+8. Sell Item
+9. Exit
