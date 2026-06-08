@@ -5,6 +5,7 @@
 #include<random>
 #include<iomanip>
 #include<fstream>
+#include<algorithm>
 using namespace std;
 
 struct Reward{
@@ -198,6 +199,7 @@ void sellItem(vector<Reward>& inventory, int& coin){
     return;
     }
 
+    cout<<endl;
     for(int i = 0; i < inventory.size(); i++){
         cout<<i<<". "<<inventory[i].name<<" ("<<inventory[i].rarity<<")\n";
     }
@@ -216,6 +218,69 @@ void sellItem(vector<Reward>& inventory, int& coin){
 
     cout<<"\nSold "<< inventory[index].name<<" for "<<price<<" coins.\n";
     inventory.erase(inventory.begin()+index);
+}
+
+bool compareByName(const Reward& a, const Reward& b){
+    return a.name < b.name;
+}
+
+int rarityRank(const string& rarity){
+    if(rarity == "Legendary") return 1;
+    if(rarity == "Epic") return 2;
+    if(rarity == "Rare") return 3;
+    if(rarity == "Common") return 4;
+    return 5;
+}
+
+bool compareByRarity(const Reward& a, const Reward& b){
+    return rarityRank(a.rarity) < rarityRank(b.rarity);
+}
+
+bool compareBySellItems(const Reward& a, const Reward& b){
+    return getSellPrice(a) > getSellPrice(b);
+}
+
+void sortInventory(const vector<Reward>& inventory){
+    if(inventory.empty()){
+        cout << "\nInventory is empty!\n";
+        return;
+    }
+
+    vector<Reward> sortedInventory = inventory;
+
+    int choice;
+    cout<<endl;
+    cout<<"1. Sort By Name"<<endl;
+    cout<<"2. Sort By Rarity"<<endl;
+    cout<<"3. Sort By Sell Value"<<endl;
+    cin>>choice;
+
+    switch(choice){
+        case 1:
+            sort(sortedInventory.begin(), sortedInventory.end(), compareByName);
+            for(const Reward& r : sortedInventory){
+                cout<<r.name<<"\n";
+            }
+            break;
+        
+        case 2:
+            sort(sortedInventory.begin(), sortedInventory.end(), compareByRarity);
+            for(const Reward& r : sortedInventory){
+                cout<<r.name<<" ("<<r.rarity<<")\n";
+            }
+            break;
+
+        case 3:
+            sort(sortedInventory.begin(), sortedInventory.end(), compareBySellItems);
+            for(const Reward& r : sortedInventory){
+                cout<<r.name<<" ("<<r.rarity<<")"<<" - "<<getSellPrice(r)<<"\n";
+            }
+            break;
+
+        default:
+            cout<<"\nInvalid Input!\n";
+            return;
+    }
 }
 
 int main(){
@@ -258,7 +323,8 @@ int main(){
         cout<<"6. Save File"<<endl;
         cout<<"7. Filter by Rarity"<<endl;
         cout<<"8. Sell Items"<<endl;
-        cout<<"9. Exit!"<<endl;
+        cout<<"9. Sort Inventory"<<endl;
+        cout<<"10. Exit!"<<endl;
         cout<<"Enter Your Choice: "<<endl;
         cin>>choice;
 
@@ -312,6 +378,10 @@ int main(){
             break;
 
         case 9:
+        sortInventory(inventory);
+            break;
+
+        case 10:
             return 0;
         
         default:
