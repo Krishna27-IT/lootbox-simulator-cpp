@@ -6,6 +6,7 @@
 #include<iomanip>
 #include<fstream>
 #include<algorithm>
+#include<ctime>
 using namespace std;
 
 struct Reward{
@@ -281,6 +282,10 @@ void sortInventory(const vector<Reward>& inventory){
             cout<<"\nInvalid Input!\n";
             return;
     }
+}
+
+int claimDailyreward(int& coin){
+    
 }
 
 int main(){
