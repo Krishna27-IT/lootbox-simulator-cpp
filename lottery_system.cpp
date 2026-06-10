@@ -138,7 +138,7 @@ Reward pitySystem(mt19937& gen, int total_weight, const vector<Reward>& slot, in
     return r;
 }
 
-void filterbyRarity(const vector<Reward>& inventory){
+void filterByRarity(const vector<Reward>& inventory){
     if(inventory.empty()){
     cout << "\nInventory is empty!\n";
     return;
@@ -284,14 +284,56 @@ void sortInventory(const vector<Reward>& inventory){
     }
 }
 
-int claimDailyreward(int& coin){
-    
+string getCurrentDate(){
+    time_t now = time(nullptr);
+    tm* currentTime = localtime(&now);
+
+    char buffer[20];
+
+    strftime(buffer, sizeof(buffer), "%Y-%m-%d", currentTime);
+
+    return string(buffer);
+}
+
+void savePlayerData(int coin,const string& lastClaimedDate){
+    ofstream player_file("Player Data.txt");
+    if(!player_file){
+        cout<<"\nError Opening File!\n";
+        return;
+    }
+
+    player_file<<coin<<"\n";
+    player_file<<lastClaimedDate<<"\n";
+}
+
+void claimDailyReward(int& coin, string& lastClaimedDate){
+    string today = getCurrentDate();
+    if(lastClaimedDate != today){
+        coin += 200;
+        lastClaimedDate = today;
+        cout<<"\nDaily Reward Claimed!\n"<<endl;
+    }else{
+        cout<<"\nDaily reward already claimed today!\n"<<endl;
+    }
+    savePlayerData(coin, lastClaimedDate);
+}
+
+
+void loadPlayerData(int& coin, string& lastClaimedDate){
+    ifstream player_file("Player Data.txt");
+    if(!player_file){
+        cout<<"\nNo Save File Found!\n";
+        return;
+    }
+
+    player_file >> coin >> lastClaimedDate;
 }
 
 int main(){
     int coin =2000;
     const int SPIN_COST = 100;
     const int TEN_SPIN_COST=900;
+    string lastClaimedDate;
 
     vector<Reward> slot;
     slot.emplace_back("Basic AKM","Common",40); 
@@ -312,6 +354,7 @@ int main(){
     vector<Reward> inventory;
 
     loadInventory(inventory);
+    loadPlayerData(coin, lastClaimedDate);
 
     int choice;
 
@@ -325,10 +368,10 @@ int main(){
         cout<<"3. Show Inventory"<<endl;
         cout<<"4. Inventory Statistics"<<endl;
         cout<<"5. Drop Rate Stats: "<<endl;
-        cout<<"6. Save File"<<endl;
-        cout<<"7. Filter by Rarity"<<endl;
-        cout<<"8. Sell Items"<<endl;
-        cout<<"9. Sort Inventory"<<endl;
+        cout<<"6. Filter by Rarity"<<endl;
+        cout<<"7. Sell Items"<<endl;
+        cout<<"8. Sort Inventory"<<endl;
+        cout<<"9. Claim Daily Reward"<<endl;
         cout<<"10. Exit!"<<endl;
         cout<<"Enter Your Choice: "<<endl;
         cin>>choice;
@@ -345,6 +388,7 @@ int main(){
             }else{
                 cout<<"\nInsufficient Coins!"<<endl;
             }
+            savePlayerData(coin, lastClaimedDate);
             break;
         
         case 2:
@@ -355,6 +399,7 @@ int main(){
             }else{
                 cout<<"\nInsufficient Coins!"<<endl;
             }
+            savePlayerData(coin, lastClaimedDate);
             break;
         
         case 3:
@@ -369,24 +414,26 @@ int main(){
             showDropRates(inventory);
             break;
 
-        case 6: 
-           saveInventory(inventory);
-           cout << "\nInventory saved successfully!\n";
-           break;
+        case 6:
+            filterByRarity(inventory);
+            break;
 
         case 7:
-            filterbyRarity(inventory);
+            sellItem(inventory, coin);
+            savePlayerData(coin, lastClaimedDate);
             break;
 
         case 8:
-            sellItem(inventory, coin);
+            sortInventory(inventory);
             break;
 
         case 9:
-        sortInventory(inventory);
+            claimDailyReward(coin, lastClaimedDate);
             break;
 
         case 10:
+            saveInventory(inventory);
+            savePlayerData(coin, lastClaimedDate);
             return 0;
         
         default:
@@ -394,6 +441,9 @@ int main(){
             break;
         }
     }
+
+    saveInventory(inventory);
+    savePlayerData(coin, lastClaimedDate);
 
    return 0;
 }

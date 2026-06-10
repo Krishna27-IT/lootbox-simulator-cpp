@@ -1,163 +1,98 @@
-# Lottery Simulator (C++)
+# Lottery System (C++)
 
-A console-based gacha/lottery simulator built in C++ to practice STL, file handling, sorting, searching, random number generation, and inventory management.
+A console-based lootbox / lottery simulator built in C++ featuring weighted rewards, inventory management, persistence, sorting, filtering, item selling, a pity system, and daily login rewards.
 
 ## Features
 
-### Lottery System
-- Single Spin
-- 10x Spin
-- Weighted reward probabilities
-- Random reward generation using `mt19937`
+### Reward System
 
-### Reward Rarities
-- Common
-- Rare
-- Epic
-- Legendary
+* Weighted random reward generation using `mt19937`
+* Multiple reward rarities:
+
+  * Common
+  * Rare
+  * Epic
+  * Legendary
+* Single Spin
+* 10x Multi Spin
 
 ### Pity System
-- Tracks consecutive non-Legendary pulls
-- Guarantees a Legendary reward after 20 unsuccessful spins
-- Resets when a Legendary is obtained
 
-### Inventory Management
-- Store all obtained rewards
-- Display inventory contents
-- Show item rarity
+* Tracks unsuccessful spins
+* Guarantees a Legendary reward after 20 non-Legendary spins
+* Automatically resets after obtaining a Legendary reward
 
-### Inventory Statistics
-- Count occurrences of each item
-- Display inventory summary using `unordered_map`
+### Inventory System
 
-### Drop Rate Statistics
-- Calculates actual drop percentages from obtained rewards
-- Displays percentages with 2 decimal precision
+* Stores all obtained rewards
+* Displays inventory contents
+* Inventory statistics by item count
+* Drop-rate statistics based on collected items
+* Filter inventory by rarity
+* Sort inventory:
 
-### Inventory Filtering
-Filter inventory by:
-- Common
-- Rare
-- Epic
-- Legendary
+  * By Name
+  * By Rarity
+  * By Sell Value
 
-### Item Selling System
-Sell rewards directly from inventory.
+### Economy System
 
-Sell values:
-| Rarity | Coins |
-|----------|--------|
-| Common | 10 |
-| Rare | 50 |
-| Epic | 100 |
-| Legendary | 500 |
+* Coin-based spinning system
+* Item selling system
+* Sell values determined by item rarity
+* Coin balance tracking
 
-### Inventory Sorting
-Sort inventory by:
-- Name (Alphabetical)
-- Rarity
-- Sell Value
+### Daily Reward System
 
-Sorting is performed on a copied inventory so the original inventory order remains unchanged.
+* Daily login reward (+200 coins)
+* Prevents multiple claims on the same day
+* Uses system date via `<ctime>`
 
-### Save & Load System
-- Save inventory to a text file
-- Automatically load inventory when the program starts
-- Inventory persistence across program sessions
+### Persistence
+
+* Save and load inventory from file
+* Save and load player data:
+
+  * Coins
+  * Last claimed daily reward date
+* Auto-save on exit
+
+## Technologies Used
+
+* C++
+* STL Vector
+* STL Unordered Map
+* STL Algorithms (`sort`)
+* Structs
+* Functions
+* File Handling (`fstream`)
+* Random Library (`mt19937`)
+* Time Library (`ctime`)
 
 ## Concepts Practiced
 
-### STL Containers
-- `vector`
-- `unordered_map`
-
-### Algorithms
-- `sort()`
-- Custom comparator functions
-
-### Random Number Generation
-- `random_device`
-- `mt19937`
-- `uniform_int_distribution`
-
-### File Handling
-- `ifstream`
-- `ofstream`
-
-### Functions
-- Parameter passing by reference
-- Const correctness
-- Modular function design
-
-### Data Structures
-- Structs
-- Dynamic inventory management
-
-## Project Structure
-
-```text
-Reward
- ├── name
- ├── rarity
- └── weight
-
-Lottery System
- ├── Weighted Random Selection
- ├── Pity System
- └── Coin Economy
-
-Inventory System
- ├── View Inventory
- ├── Statistics
- ├── Drop Rates
- ├── Filtering
- ├── Sorting
- ├── Selling
- ├── Save
- └── Load
-```
-
-## Sample Menu
-
-```text
--------Lottery Simulator-------
-
-Available Coins: 2000
-
-1. Spin
-2. 10 Spin
-3. Show Inventory
-4. Inventory Statistics
-5. Drop Rate Stats
-6. Save File
-7. Filter by Rarity
-8. Sell Items
-9. Sort Inventory
-10. Exit
-```
-
-## Learning Goals
-
-This project was built to practice:
-
-- C++ fundamentals
-- STL containers
-- Sorting with custom comparators
-- Hash maps
-- Randomized systems
-- File persistence
-- Inventory management systems
-- Basic game backend logic
+* Weighted probability systems
+* Random number generation
+* File I/O
+* Data persistence
+* Sorting with custom comparators
+* Filtering data
+* Inventory management
+* Menu-driven applications
+* Function decomposition
+* STL containers and algorithms
 
 ## Future Improvements
 
-- Multiple save slots
-- Shop system
-- Buy coins feature
-- Inventory search by name
-- Reward IDs
-- Duplicate item tracking
-- Inventory pagination
-- Better file format (CSV/JSON)
-- Class-based architecture
-- Database integration
+* Object-Oriented Refactor (Classes)
+* Multi-file Project Structure
+* JSON Save Files
+* Reward Streak System
+* Achievement System
+* Shop System
+* Better UI Formatting
+* Save All Game Data in a Unified Save System
+
+## Learning Goal
+
+This project was built to strengthen practical C++ programming skills through a progressively expanded console application involving random systems, persistence, inventory management, and game mechanics.
