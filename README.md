@@ -1,98 +1,174 @@
 # Lottery System (C++)
 
-A console-based lootbox / lottery simulator built in C++ featuring weighted rewards, inventory management, persistence, sorting, filtering, item selling, a pity system, and daily login rewards.
+A console-based lottery/lootbox simulator built in C++ to practice object-oriented programming, file handling, STL containers, random number generation, and software design principles.
 
 ## Features
 
+### Lottery System
+
+* Weighted random reward generation
+* Multiple reward rarities
+* Single Spin
+* 10x Spin
+* Mersenne Twister (`mt19937`) random engine
+
 ### Reward System
 
-* Weighted random reward generation using `mt19937`
-* Multiple reward rarities:
-
-  * Common
-  * Rare
-  * Epic
-  * Legendary
-* Single Spin
-* 10x Multi Spin
+* Common, Rare, Epic, and Legendary rewards
+* Weighted drop chances
+* Inventory tracking
 
 ### Pity System
 
-* Tracks unsuccessful spins
-* Guarantees a Legendary reward after 20 non-Legendary spins
-* Automatically resets after obtaining a Legendary reward
+* Guaranteed Legendary reward after 20 non-Legendary spins
+* Pity counter resets when a Legendary reward is obtained
 
 ### Inventory System
 
-* Stores all obtained rewards
-* Displays inventory contents
-* Inventory statistics by item count
-* Drop-rate statistics based on collected items
+* Store won rewards
+* View inventory
+* Inventory statistics
 * Filter inventory by rarity
-* Sort inventory:
+* Sort inventory by:
 
-  * By Name
-  * By Rarity
-  * By Sell Value
+  * Name
+  * Rarity
+  * Sell value
 
 ### Economy System
 
-* Coin-based spinning system
-* Item selling system
-* Sell values determined by item rarity
-* Coin balance tracking
+* Coin-based gameplay
+* Single Spin cost: 100 coins
+* 10x Spin cost: 900 coins
+* Sell rewards for coins
 
 ### Daily Reward System
 
-* Daily login reward (+200 coins)
-* Prevents multiple claims on the same day
-* Uses system date via `<ctime>`
+* Claim daily reward once per day
+* Persistent date tracking
+* Automatic save after claiming
 
-### Persistence
+### Save & Load System
 
-* Save and load inventory from file
-* Save and load player data:
+* Inventory persistence using text files
+* Player coin persistence
+* Daily reward persistence
+* Automatic loading on startup
 
-  * Coins
-  * Last claimed daily reward date
-* Auto-save on exit
+## Object-Oriented Design
+
+### Reward Class
+
+Responsible for storing reward information.
+
+Attributes:
+
+* Name
+* Rarity
+* Weight
+
+Methods:
+
+* Getters for reward data
+
+### Player Class
+
+Responsible for player-related data and actions.
+
+Attributes:
+
+* Coins
+* Last claimed daily reward date
+
+Methods:
+
+* Claim daily reward
+* Save player data
+* Load player data
+* Coin management
+
+### Inventory Class
+
+Responsible for inventory management.
+
+Methods:
+
+* Add items
+* Show inventory
+* Show inventory statistics
+* Show drop rates
+* Filter by rarity
+* Sort inventory
+* Sell items
+* Save inventory
+* Load inventory
 
 ## Technologies Used
 
 * C++
 * STL Vector
 * STL Unordered Map
-* STL Algorithms (`sort`)
-* Structs
-* Functions
 * File Handling (`fstream`)
-* Random Library (`mt19937`)
-* Time Library (`ctime`)
+* Random Library (`<random>`)
+* Time Library (`<ctime>`)
+* Object-Oriented Programming
 
 ## Concepts Practiced
 
-* Weighted probability systems
-* Random number generation
-* File I/O
-* Data persistence
-* Sorting with custom comparators
-* Filtering data
-* Inventory management
-* Menu-driven applications
-* Function decomposition
-* STL containers and algorithms
+* Classes and Objects
+* Constructors
+* Encapsulation
+* Getters
+* File Persistence
+* Random Number Generation
+* Weighted Probability Systems
+* Inventory Management
+* Sorting Algorithms
+* Searching and Filtering
+* Menu-Driven Applications
+* Pass-by-Reference
+* Git & GitHub Workflow
 
 ## Future Improvements
 
-* Object-Oriented Refactor (Classes)
-* Multi-file Project Structure
-* JSON Save Files
-* Reward Streak System
-* Achievement System
-* Shop System
-* Better UI Formatting
-* Save All Game Data in a Unified Save System
+* Split project into header and source files
+* JSON-based save system
+* LotterySystem controller class
+* Better input validation
+* Save pity counter
+* Inventory search system
+* Achievement system
+* Improved console UI
+* Unit testing
 
-## Learning Goal
+## Project Structure
 
-This project was built to strengthen practical C++ programming skills through a progressively expanded console application involving random systems, persistence, inventory management, and game mechanics.
+```text
+Lottery System
+│
+├── Reward Class
+├── Player Class
+├── Inventory Class
+│
+├── Lottery Logic
+├── Pity System
+├── Daily Reward System
+├── Economy System
+├── Inventory Management
+│
+├── Player Data.txt
+└── Won Items.txt
+```
+
+## Learning Goals
+
+This project was built to strengthen understanding of:
+
+* Intermediate C++
+* Object-Oriented Programming
+* Data Structures
+* File Handling
+* Probability-Based Systems
+* Software Refactoring
+* Git Version Control
+* Project Organization
