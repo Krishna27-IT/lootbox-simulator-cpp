@@ -1,174 +1,140 @@
 # Lottery System (C++)
 
-A console-based lottery/lootbox simulator built in C++ to practice object-oriented programming, file handling, STL containers, random number generation, and software design principles.
+A console-based lootbox / lottery simulator built in C++ to practice object-oriented programming, file handling, STL containers, random number generation, and multi-file project organization.
 
 ## Features
 
-### Lottery System
-
-* Weighted random reward generation
+* Weighted random reward system
 * Multiple reward rarities
 * Single Spin
 * 10x Spin
-* Mersenne Twister (`mt19937`) random engine
-
-### Reward System
-
-* Common, Rare, Epic, and Legendary rewards
-* Weighted drop chances
-* Inventory tracking
-
-### Pity System
-
-* Guaranteed Legendary reward after 20 non-Legendary spins
-* Pity counter resets when a Legendary reward is obtained
-
-### Inventory System
-
-* Store won rewards
-* View inventory
+* Pity System (guaranteed Legendary after consecutive non-Legendary pulls)
+* Inventory management
 * Inventory statistics
+* Drop rate analysis
 * Filter inventory by rarity
-* Sort inventory by:
-
-  * Name
-  * Rarity
-  * Sell value
-
-### Economy System
-
-* Coin-based gameplay
-* Single Spin cost: 100 coins
-* 10x Spin cost: 900 coins
-* Sell rewards for coins
-
-### Daily Reward System
-
-* Claim daily reward once per day
-* Persistent date tracking
-* Automatic save after claiming
-
-### Save & Load System
-
-* Inventory persistence using text files
-* Player coin persistence
-* Daily reward persistence
-* Automatic loading on startup
-
-## Object-Oriented Design
-
-### Reward Class
-
-Responsible for storing reward information.
-
-Attributes:
-
-* Name
-* Rarity
-* Weight
-
-Methods:
-
-* Getters for reward data
-
-### Player Class
-
-Responsible for player-related data and actions.
-
-Attributes:
-
-* Coins
-* Last claimed daily reward date
-
-Methods:
-
-* Claim daily reward
-* Save player data
-* Load player data
-* Coin management
-
-### Inventory Class
-
-Responsible for inventory management.
-
-Methods:
-
-* Add items
-* Show inventory
-* Show inventory statistics
-* Show drop rates
-* Filter by rarity
 * Sort inventory
-* Sell items
-* Save inventory
-* Load inventory
 
-## Technologies Used
+  * By Name
+  * By Rarity
+  * By Sell Value
+* Sell items for coins
+* Daily reward system
+* Save / Load player data
+* Save / Load inventory data
+* Menu-driven interface
 
-* C++
-* STL Vector
-* STL Unordered Map
-* File Handling (`fstream`)
-* Random Library (`<random>`)
-* Time Library (`<ctime>`)
-* Object-Oriented Programming
+---
 
-## Concepts Practiced
+## Reward Pool
 
-* Classes and Objects
-* Constructors
-* Encapsulation
-* Getters
-* File Persistence
-* Random Number Generation
-* Weighted Probability Systems
-* Inventory Management
-* Sorting Algorithms
-* Searching and Filtering
-* Menu-Driven Applications
-* Pass-by-Reference
-* Git & GitHub Workflow
+| Item        | Rarity    | Weight |
+| ----------- | --------- | ------ |
+| Basic AKM   | Common    | 40     |
+| Green Shirt | Common    | 30     |
+| Blue Shoes  | Rare      | 15     |
+| Epic Dance  | Epic      | 10     |
+| Golden AKM  | Legendary | 5      |
 
-## Future Improvements
+---
 
-* Split project into header and source files
-* JSON-based save system
-* LotterySystem controller class
-* Better input validation
-* Save pity counter
-* Inventory search system
-* Achievement system
-* Improved console UI
-* Unit testing
+## Game Mechanics
+
+* Player starts with coins
+* Single Spin costs 100 coins
+* 10 Spin costs 900 coins
+* Rewards are selected using weighted probability
+* Items are stored in inventory
+* Duplicate items are allowed
+* Items can be sold for coins
+* Progress is saved to local files
+
+---
 
 ## Project Structure
 
 ```text
-Lottery System
+project/
 │
-├── Reward Class
-├── Player Class
-├── Inventory Class
+├── main.cpp
 │
-├── Lottery Logic
-├── Pity System
-├── Daily Reward System
-├── Economy System
-├── Inventory Management
+├── Reward.h
+├── Reward.cpp
 │
-├── Player Data.txt
-└── Won Items.txt
+├── Player.h
+├── Player.cpp
+│
+├── Inventory.h
+├── Inventory.cpp
+│
+├── Lottery.h
+├── Lottery.cpp
+│
+├── Inventory.txt
+└── Player Data.txt
 ```
 
-## Learning Goals
+---
 
-This project was built to strengthen understanding of:
+## Concepts Practiced
 
-* Intermediate C++
-* Object-Oriented Programming
-* Data Structures
-* File Handling
-* Probability-Based Systems
-* Software Refactoring
-* Git Version Control
-* Project Organization
+### Object-Oriented Programming
+
+* Classes
+* Objects
+* Encapsulation
+* Constructors
+* Member functions
+* Access specifiers
+* Multi-file project structure
+
+### C++
+
+* STL Vector
+* STL Unordered Map
+* References
+* Const correctness
+* Random number generation (`mt19937`)
+* File handling (`ifstream`, `ofstream`)
+* Sorting with custom comparators
+* Menu-driven applications
+
+### Software Design
+
+* Separation of concerns
+* Inventory management system
+* Save/load persistence
+* Weighted probability systems
+* Basic game architecture
+
+---
+
+## Future Improvements
+
+* JSON save system
+* Player profiles
+* Configurable reward pools
+* Reward database
+* Enum-based rarity system
+
+---
+
+## Build
+
+Using g++:
+
+```bash
+g++ main.cpp Reward.cpp Player.cpp Inventory.cpp Lottery.cpp -o lottery_system
+```
+
+Run:
+
+```bash
+./lottery_system
+```
+
+---
+
+## Learning Goal
+
+This project was created as part of my C++ learning journey to move from procedural programming toward object-oriented design and larger multi-file applications.
