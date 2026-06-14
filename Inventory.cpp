@@ -1,5 +1,5 @@
 #include "Inventory.h"
-
+#include "RarityUtils.h"
 #include <iostream>
 #include <fstream>
 #include <unordered_map>
@@ -28,7 +28,7 @@ void Inventory::showInventory() const {
 
     cout << "\nWon Items: " << endl;
     for (const Reward& i : items) {
-        cout << i.getName() << " (" << i.getRarity() << ")\n";
+        cout << i.getName() << " (" << rarityToString(i.getRarity()) << ")\n";
     }
 }
 
@@ -85,20 +85,20 @@ void Inventory::filterByRarity() const {
     cout << "4. Legendary" << endl;
     cin >> choice;
 
-    string rarity;
+    Rarity rarity;
 
     switch (choice) {
         case 1:
-            rarity = "Common";
+            rarity = Rarity::Common;
             break;
         case 2:
-            rarity = "Rare";
+            rarity = Rarity::Rare;
             break;
         case 3:
-            rarity = "Epic";
+            rarity = Rarity::Epic;
             break;
         case 4:
-            rarity = "Legendary";
+            rarity = Rarity::Legendary;
             break;
         default:
             cout << "\nInvalid Input!\n";
@@ -107,7 +107,7 @@ void Inventory::filterByRarity() const {
 
     for (const Reward& r : items) {
         if (r.getRarity() == rarity) {
-            cout << r.getName() << ", " << r.getRarity() << endl;
+            cout << r.getName() << ", " << rarityToString(r.getRarity()) << endl;
             found = true;
         }
     }
@@ -117,19 +117,29 @@ void Inventory::filterByRarity() const {
     }
 }
 
-int rarityRank(const string& rarity) {
-    if (rarity == "Legendary") return 1;
-    if (rarity == "Epic") return 2;
-    if (rarity == "Rare") return 3;
-    if (rarity == "Common") return 4;
+int rarityRank(Rarity rarity) {
+    switch(rarity){
+        case Rarity::Legendary:
+            return 1;
+
+        case Rarity::Epic:
+            return 2;
+
+        case Rarity::Rare:
+            return 3;
+
+        case Rarity::Common:
+            return 4;
+    }
+
     return 5;
 }
 
 int getSellPrice(const Reward& item) {
-    if (item.getRarity() == "Common") return 10;
-    if (item.getRarity() == "Rare") return 50;
-    if (item.getRarity() == "Epic") return 100;
-    if (item.getRarity() == "Legendary") return 500;
+    if (item.getRarity() == Rarity::Common) return 10;
+    if (item.getRarity() == Rarity::Rare) return 50;
+    if (item.getRarity() == Rarity::Epic) return 100;
+    if (item.getRarity() == Rarity::Legendary) return 500;
 
     return 0;
 }
@@ -172,14 +182,14 @@ void Inventory::sortInventory() const {
         case 2:
             sort(sortedInventory.begin(), sortedInventory.end(), compareByRarity);
             for (const Reward& r : sortedInventory) {
-                cout << r.getName() << " (" << r.getRarity() << ")\n";
+                cout << r.getName() << " (" << rarityToString(r.getRarity()) << ")\n";
             }
             break;
 
         case 3:
             sort(sortedInventory.begin(), sortedInventory.end(), compareBySellItems);
             for (const Reward& r : sortedInventory) {
-                cout << r.getName() << " (" << r.getRarity() << ")" << " - " << getSellPrice(r) << "\n";
+                cout << r.getName() << " (" << rarityToString(r.getRarity()) << ")" << " - " << getSellPrice(r) << "\n";
             }
             break;
 
@@ -197,7 +207,7 @@ void Inventory::saveInventory() const{
     }
 
     for (const Reward& r : items) {
-        file << r.getName() << "," << r.getRarity() << "\n";
+        file << r.getName() << "," << rarityToString(r.getRarity()) << "\n";
     }
 }
 
@@ -212,8 +222,9 @@ void Inventory::loadInventory() {
     while (getline(file, line)) {
         size_t commaPos = line.find(',');
         string name = line.substr(0, commaPos);
-        string rarity = line.substr(commaPos + 1);
-        items.emplace_back(name, rarity, 0);
+        string rarityString = line.substr(commaPos + 1);
+
+        items.emplace_back(name,stringToRarity(rarityString),0);
     }
 }
 
@@ -225,7 +236,7 @@ void Inventory::sellItem(Player& player) {
 
     cout << "\nSelect an item to sell: " << endl;
     for (size_t i = 0; i < items.size(); ++i) {
-        cout << i + 1 << ". " << items[i].getName() << " (" << items[i].getRarity() << ") - " << getSellPrice(items[i]) << " coins\n";
+        cout << i + 1 << ". " << items[i].getName() << " (" << rarityToString(items[i].getRarity()) << ") - " << getSellPrice(items[i]) << " coins\n";
     }
 
     int index;

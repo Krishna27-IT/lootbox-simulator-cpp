@@ -1,5 +1,6 @@
 #include<iostream>
 #include "Lottery.h"
+#include "Reward.h"
 #include<vector>
 
 using namespace std;
@@ -12,11 +13,11 @@ LotterySystem::LotterySystem(): player(2000, ""), pityCounter(0), totalWeight(0)
     player.loadPlayerData();
     inventory.loadInventory();
 
-    rewardPool.emplace_back("Basic AKM","Common",40); 
-    rewardPool.emplace_back("Green Shirt","Common",30); 
-    rewardPool.emplace_back("Blue Shoes","Rare",15); 
-    rewardPool.emplace_back("Epic Dance","Epic",10); 
-    rewardPool.emplace_back("Golden AKM","Legendary",5);
+    rewardPool.emplace_back("Basic AKM", Rarity::Common, 40); 
+    rewardPool.emplace_back("Green Shirt", Rarity::Common, 30); 
+    rewardPool.emplace_back("Blue Shoes", Rarity::Rare, 15); 
+    rewardPool.emplace_back("Epic Dance", Rarity::Epic, 10); 
+    rewardPool.emplace_back("Golden AKM", Rarity::Legendary, 5);
 
     for(const Reward& r : rewardPool){
         totalWeight += r.getWeight();
@@ -34,7 +35,7 @@ Reward LotterySystem::performSpin(){
             return r;
         }
     }
-    return Reward{"Nothing","Common",0};
+    return Reward{"Nothing", Rarity::Common, 0};
 }
 
 void LotterySystem::multipleSpin(){

@@ -1,20 +1,20 @@
 #ifndef REWARD_H
 #define REWARD_H
-
+#include "Rarity.h"
 #include <string>
 
 class Reward
 {
 private:
     std::string name;
-    std::string rarity;
+    Rarity rarity;
     int weight;
 
 public:
-    Reward(const std::string n, const std::string r, int w);
+    Reward(const std::string& n, Rarity r, int w);
 
     const std::string& getName() const;
-    const std::string& getRarity() const;
+    Rarity getRarity() const;
     int getWeight() const;
 };
 
