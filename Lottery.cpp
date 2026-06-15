@@ -1,6 +1,9 @@
 #include<iostream>
 #include "Lottery.h"
 #include "Reward.h"
+#include <fstream>
+#include <sstream>
+#include "RarityUtils.h"
 #include<vector>
 
 using namespace std;
@@ -13,14 +16,41 @@ LotterySystem::LotterySystem(): player(2000, ""), pityCounter(0), totalWeight(0)
     player.loadPlayerData();
     inventory.loadInventory();
 
-    rewardPool.emplace_back("Basic AKM", Rarity::Common, 40); 
-    rewardPool.emplace_back("Green Shirt", Rarity::Common, 30); 
-    rewardPool.emplace_back("Blue Shoes", Rarity::Rare, 15); 
-    rewardPool.emplace_back("Epic Dance", Rarity::Epic, 10); 
-    rewardPool.emplace_back("Golden AKM", Rarity::Legendary, 5);
+    loadRewards();
 
     for(const Reward& r : rewardPool){
         totalWeight += r.getWeight();
+    }
+}
+
+void LotterySystem::loadRewards()
+{
+    ifstream file("rewards.txt");
+
+    if(!file){
+        cout << "Failed to load rewards database!\n";
+        return;
+    }
+
+    string line;
+
+    while(getline(file, line))
+    {
+        stringstream ss(line);
+
+        string name;
+        string rarityString;
+        string weightString;
+
+        getline(ss, name, ',');
+        getline(ss, rarityString, ',');
+        getline(ss, weightString);
+
+        rewardPool.emplace_back(
+            name,
+            stringToRarity(rarityString),
+            stoi(weightString)
+        );
     }
 }
 

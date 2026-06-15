@@ -26,6 +26,7 @@ private:
     Reward pitySystem();
 
     void multipleSpin();
+    void loadRewards();
 
 public:
     LotterySystem();

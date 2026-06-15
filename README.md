@@ -1,106 +1,134 @@
 # Lottery System (C++)
 
-A console-based lootbox / lottery simulator built in C++ to practice object-oriented programming, file handling, weighted probability systems, and project organization.
+A console-based lootbox / lottery simulator built in C++ featuring weighted rewards, inventory management, persistence, sorting, filtering, item selling, a pity system, daily rewards, and a data-driven reward database.
 
 ## Features
 
-* Weighted random reward system
-* Multiple reward rarities
-* Single spin
-* 10x spin
-* Inventory management
-* Inventory statistics
-* Drop rate tracking
-* Item selling system
-* Coin-based economy
-* Daily reward system
-* Pity system (guaranteed Legendary reward after a streak of bad luck)
-* Inventory filtering by rarity
-* Inventory sorting
+### Reward System
+
+* Weighted random reward generation using `mt19937`
+* Multiple reward rarities:
+
+  * Common
+  * Rare
+  * Epic
+  * Legendary
+* Single Spin
+* 10x Multi Spin
+* Reward database loaded from external file
+* Data-driven reward pool configuration
+
+### Pity System
+
+* Tracks unsuccessful spins
+* Guarantees a Legendary reward after 20 non-Legendary spins
+* Automatically resets after obtaining a Legendary reward
+
+### Inventory System
+
+* Stores all obtained rewards
+* Displays inventory contents
+* Inventory statistics by item count
+* Drop-rate statistics based on collected items
+* Filter inventory by rarity
+* Sort inventory:
 
   * By Name
   * By Rarity
   * By Sell Value
-* Persistent save/load system
-* Enum-based rarity system
-* Multi-file project structure
 
-## Rewards
+### Economy System
 
-| Item        | Rarity    | Weight |
-| ----------- | --------- | ------ |
-| Basic AKM   | Common    | 40     |
-| Green Shirt | Common    | 30     |
-| Blue Shoes  | Rare      | 15     |
-| Epic Dance  | Epic      | 10     |
-| Golden AKM  | Legendary | 5      |
+* Coin-based spinning system
+* Item selling system
+* Sell values determined by rarity
+* Coin balance tracking
 
-## Game Mechanics
+### Daily Reward System
 
-* Player starts with coins
-* Single Spin costs 100 coins
-* 10 Spin costs 900 coins
-* Daily reward grants bonus coins once per day
-* Rewards are selected using weighted probability
-* Inventory and player data are saved between sessions
-* Pity system guarantees a Legendary reward after 20 non-Legendary pulls
+* Daily login reward (+200 coins)
+* Prevents multiple claims on the same day
+* Uses system date via `<ctime>`
+
+### Persistence
+
+* Save and load inventory from file
+* Save and load player data
+* Auto-save on important actions
 
 ## Technologies Used
 
 * C++
 * STL Vector
 * STL Unordered Map
-* Enums
-* Structuring with Header / Source Files
-* File Handling
-* Random Library (`<random>`)
-* OOP Principles
+* STL Algorithms (`sort`)
+* Enumerations (`enum class`)
+* Structs & Classes
+* File Handling (`fstream`)
+* String Streams (`stringstream`)
+* Random Library (`mt19937`)
+* Time Library (`ctime`)
 
 ## Concepts Practiced
 
 * Object-Oriented Programming
-* Class Design
+* Multi-file Project Structure
 * Encapsulation
-* Multi-file Project Architecture
 * Enum-based Design
-* Weighted Random Selection
-* File Persistence
+* Weighted Probability Systems
+* Random Number Generation
+* File I/O
+* Data Persistence
+* CSV Parsing
+* Data-Driven Design
+* Sorting with Custom Comparators
+* Filtering Data
 * Inventory Management
-* Sorting Algorithms
-* Data Aggregation
-* References and Const Correctness
-* Git & GitHub Workflow
+* Menu-Driven Applications
+* Function Decomposition
+* STL Containers and Algorithms
 
 ## Project Structure
 
 ```text
 main.cpp
+
 Lottery.cpp
 Lottery.h
-Inventory.cpp
-Inventory.h
-Player.cpp
-Player.h
+
 Reward.cpp
 Reward.h
+
+Player.cpp
+Player.h
+
+Inventory.cpp
+Inventory.h
+
 Rarity.h
 RarityUtils.cpp
 RarityUtils.h
+
+rewards.txt
+
+Inventory.txt
+Player Data.txt
 ```
 
-## Future Improvements
+## Reward Database
 
-* Reward Database
-* JSON Save System
+Rewards are loaded from an external text file:
 
-## Learning Goals
+```text
+Basic AKM,Common,40
+Green Shirt,Common,30
+Blue Shoes,Rare,15
+Epic Dance,Epic,10
+Golden AKM,Legendary,5
+```
 
-This project was built to strengthen:
+This allows new rewards to be added without modifying source code.
 
-* C++
-* OOP Design
-* File Handling
-* Project Organization
-* Software Refactoring
-* Version Control
-* Problem Solving
+## Learning Goal
+
+This project was built to strengthen practical C++ software development skills through progressively adding game mechanics, persistence, refactoring, file parsing, and data-driven architecture while following a Git & GitHub workflow.

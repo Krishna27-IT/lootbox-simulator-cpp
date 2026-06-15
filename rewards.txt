@@ -1,0 +1,5 @@
+Basic AKM,Common,40
+Green Shirt,Common,30
+Blue Shoes,Rare,15
+Epic Dance,Epic,10
+Golden AKM,Legendary,5
