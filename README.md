@@ -1,6 +1,10 @@
 # Lottery System (C++)
 
-A console-based lootbox / lottery simulator built in C++ featuring weighted rewards, inventory management, persistence, sorting, filtering, item selling, a pity system, daily rewards, and a data-driven reward database.
+A console-based lootbox / lottery simulator built in C++ featuring weighted rewards, inventory management, persistence, sorting, filtering, item selling, daily rewards, a pity system, and JSON-based save files.
+
+The project was progressively expanded and refactored to practice software engineering fundamentals, object-oriented programming, file handling, data-driven design, and project organization.
+
+---
 
 ## Features
 
@@ -15,21 +19,21 @@ A console-based lootbox / lottery simulator built in C++ featuring weighted rewa
   * Legendary
 * Single Spin
 * 10x Multi Spin
-* Reward database loaded from external file
+* External reward database loaded from file
 * Data-driven reward pool configuration
 
 ### Pity System
 
-* Tracks unsuccessful spins
-* Guarantees a Legendary reward after 20 non-Legendary spins
+* Tracks consecutive non-Legendary pulls
+* Guarantees a Legendary reward after 20 unsuccessful spins
 * Automatically resets after obtaining a Legendary reward
 
 ### Inventory System
 
 * Stores all obtained rewards
 * Displays inventory contents
-* Inventory statistics by item count
-* Drop-rate statistics based on collected items
+* Inventory statistics
+* Drop-rate statistics
 * Filter inventory by rarity
 * Sort inventory:
 
@@ -41,20 +45,41 @@ A console-based lootbox / lottery simulator built in C++ featuring weighted rewa
 
 * Coin-based spinning system
 * Item selling system
-* Sell values determined by rarity
+* Rarity-based sell values
 * Coin balance tracking
 
 ### Daily Reward System
 
-* Daily login reward (+200 coins)
-* Prevents multiple claims on the same day
+* Daily login reward
+* Prevents duplicate claims on the same day
 * Uses system date via `<ctime>`
 
 ### Persistence
 
-* Save and load inventory from file
-* Save and load player data
+* JSON-based player save system
+* JSON-based inventory save system
+* Save/load support between sessions
 * Auto-save on important actions
+
+---
+
+## Reward Database
+
+Rewards are loaded from an external database file.
+
+Example:
+
+```text
+Basic AKM,Common,40
+Green Shirt,Common,30
+Blue Shoes,Rare,15
+Epic Dance,Epic,10
+Golden AKM,Legendary,5
+```
+
+New rewards can be added without modifying source code.
+
+---
 
 ## Technologies Used
 
@@ -63,35 +88,59 @@ A console-based lootbox / lottery simulator built in C++ featuring weighted rewa
 * STL Unordered Map
 * STL Algorithms (`sort`)
 * Enumerations (`enum class`)
-* Structs & Classes
 * File Handling (`fstream`)
 * String Streams (`stringstream`)
 * Random Library (`mt19937`)
 * Time Library (`ctime`)
+* JSON-style Data Serialization
+
+---
 
 ## Concepts Practiced
 
-* Object-Oriented Programming
+### C++ Fundamentals
+
+* Classes
+* Constructors
+* References
+* Const Correctness
+* Header / Source File Separation
 * Multi-file Project Structure
+
+### Data Structures
+
+* Vector
+* Unordered Map
+
+### Software Engineering
+
+* Object-Oriented Programming
 * Encapsulation
-* Enum-based Design
-* Weighted Probability Systems
-* Random Number Generation
-* File I/O
-* Data Persistence
-* CSV Parsing
+* Refactoring
 * Data-Driven Design
+* Separation of Concerns
+* Serialization & Deserialization
+* Save System Design
+
+### Algorithms
+
+* Weighted Random Selection
 * Sorting with Custom Comparators
-* Filtering Data
-* Inventory Management
-* Menu-Driven Applications
-* Function Decomposition
-* STL Containers and Algorithms
+* Inventory Aggregation
+* Data Filtering
+
+### Tools
+
+* Git
+* GitHub
+* Command Line Compilation
+
+---
 
 ## Project Structure
 
 ```text
-main.cpp
+lottery_system.cpp
 
 Lottery.cpp
 Lottery.h
@@ -111,24 +160,35 @@ RarityUtils.h
 
 rewards.txt
 
-Inventory.txt
-Player Data.txt
+player.json
+inventory.json
 ```
 
-## Reward Database
+---
 
-Rewards are loaded from an external text file:
+## Example Save File
 
-```text
-Basic AKM,Common,40
-Green Shirt,Common,30
-Blue Shoes,Rare,15
-Epic Dance,Epic,10
-Golden AKM,Legendary,5
+```json
+{
+    "coins": 2500,
+    "lastClaimedDate": "2026-06-16"
+}
 ```
 
-This allows new rewards to be added without modifying source code.
+---
 
-## Learning Goal
+## Learning Outcome
 
-This project was built to strengthen practical C++ software development skills through progressively adding game mechanics, persistence, refactoring, file parsing, and data-driven architecture while following a Git & GitHub workflow.
+This project was built to strengthen practical C++ development skills through iterative development and continuous refactoring.
+
+Key topics learned include:
+
+* Object-Oriented Programming
+* File Persistence
+* JSON Serialization
+* Data-Driven Design
+* Multi-file Project Organization
+* Enum-Based Design
+* Inventory Management Systems
+* Randomized Game Mechanics
+* Git & GitHub Workflow

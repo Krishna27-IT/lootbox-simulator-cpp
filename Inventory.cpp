@@ -200,19 +200,33 @@ void Inventory::sortInventory() const {
 }
 
 void Inventory::saveInventory() const{
-    ofstream file("Inventory.txt");
+    ofstream file("inventory.json");
     if (!file) {
         cout << "\nError Opening File!\n";
         return;
     }
 
-    for (const Reward& r : items) {
-        file << r.getName() << "," << rarityToString(r.getRarity()) << "\n";
+    file << "{\n";
+    file << "    \"inventory\": [\n";
+
+    for(size_t i = 0; i < items.size(); i++){
+        file << "        {\n";
+        file << "            \"name\": \"" << items[i].getName() << "\",\n";
+        file << "            \"rarity\": \"" << rarityToString(items[i].getRarity()) << "\"\n";
+        file << "        }";
+
+        if(i != items.size() - 1)
+        file << ",";
+
+        file << "\n";
     }
+
+    file << "    ]\n";
+    file << "}\n";
 }
 
 void Inventory::loadInventory() {
-    ifstream file("Inventory.txt");
+    ifstream file("inventory.json");
     string line;
     if (!file) {
         cout << "\nNo save file found.\n";
@@ -220,11 +234,17 @@ void Inventory::loadInventory() {
     }
 
     while (getline(file, line)) {
-        size_t commaPos = line.find(',');
-        string name = line.substr(0, commaPos);
-        string rarityString = line.substr(commaPos + 1);
+        if (line.find("\"name\":") != string::npos) {
+            string name = line.substr(line.find(":") + 2);
+            name = name.substr(1, name.length() - 3);
 
-        items.emplace_back(name,stringToRarity(rarityString),0);
+            getline(file, line);
+            string rarityStr = line.substr(line.find(":") + 2);
+            rarityStr = rarityStr.substr(1, rarityStr.length() - 3);
+
+            Rarity rarity = stringToRarity(rarityStr);
+            items.emplace_back(name, rarity, getSellPrice(Reward(name, rarity, 0)));
+        }
     }
 }
 

@@ -45,22 +45,42 @@ void Player::claimDailyReward(){
 }
 
 void Player::savePlayerData(){
-    std::ofstream player_file("Player Data.txt");
+    std::ofstream player_file("player.json");
     if(!player_file){
         std::cout<<"\nError Opening File!\n";
         return;
     }
 
-    player_file<<coin<<"\n";
-    player_file<<lastClaimedDate<<"\n";
+    player_file << "{\n";
+    player_file << "    \"coins\": " << coin << ",\n";
+    player_file << "    \"lastClaimedDate\": \"" << lastClaimedDate << "\"\n";
+    player_file << "}\n";
 }
 
 void Player::loadPlayerData(){
-    std::ifstream player_file("Player Data.txt");
+   string line;
+
+    std::ifstream player_file("player.json");
     if(!player_file){
         std::cout<<"\nNo Save File Found!\n";
         return;
     }
 
-    player_file >> coin >> lastClaimedDate;
+    while(getline(player_file, line))
+    {
+        if(line.find("\"coins\":") != string::npos){
+            size_t pos = line.find(":");
+            if(pos != string::npos){
+                coin = stoi(line.substr(pos + 1));
+            }
+    }
+        if(line.find("\"lastClaimedDate\":") != string::npos){
+            size_t pos = line.find(":");
+            if(pos != string::npos){
+                lastClaimedDate = line.substr(pos + 1);
+                // Remove quotes
+                lastClaimedDate = lastClaimedDate.substr(1, lastClaimedDate.length() - 2);
+            }
+        }
+    }
 }

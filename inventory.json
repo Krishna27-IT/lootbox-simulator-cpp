@@ -1,0 +1,48 @@
+{
+    "inventory": [
+        {
+            "name": "Green Shirt",
+            "rarity": "Common"
+        },
+        {
+            "name": "Blue Shoes",
+            "rarity": "Rare"
+        },
+        {
+            "name": "Basic AKM",
+            "rarity": "Common"
+        },
+        {
+            "name": "Epic Dance",
+            "rarity": "Epic"
+        },
+        {
+            "name": "Basic AKM",
+            "rarity": "Common"
+        },
+        {
+            "name": "Green Shirt",
+            "rarity": "Common"
+        },
+        {
+            "name": "Epic Dance",
+            "rarity": "Epic"
+        },
+        {
+            "name": "Green Shirt",
+            "rarity": "Common"
+        },
+        {
+            "name": "Golden AKM",
+            "rarity": "Legendary"
+        },
+        {
+            "name": "Golden AKM",
+            "rarity": "Legendary"
+        },
+        {
+            "name": "Basic AKM",
+            "rarity": "Common"
+        }
+    ]
+}
